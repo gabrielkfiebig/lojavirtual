@@ -3,22 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Type;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('products.index', ['products' => Product::all()]);
+        $filter = $request->input('search');
+        if ($filter) {
+            $products = Product::where('name', 'like', "%$filter%")->get();
+        } else {
+            $products = Product::with('type')->orderby('name','asc')->get();
+        }
+        return view('products.index', ['products' => $products, 'filter' => $filter]);
     }
 
     public function create()
     {
-        return view('products.create');
+        return view('products.create', [
+            'types' => Type::all()
+        ]);
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|min:2|max:50',
+            'quantity' => 'required|gt:0|integer',
+            'price' => 'required|numeric'
+        ]);
         Product::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -34,7 +49,9 @@ class ProductsController extends Controller
         //find é o método que faz select * from products where id= ?
         $product = Product::find($id);
         //retornamos a view passando a TUPLA de produto consultado
-        return view('products.edit', ['product' => $product]);
+        return view('products.edit', ['product' => $product,
+            'types' => Type::all()
+        ]);
     }
     
     public function update(Request $request)

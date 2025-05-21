@@ -9,9 +9,16 @@
     <a href="{{ url('/products/new') }}">Adicionar</a>
     <a href="{{ url('/') }}">Voltar</a>
     <h3>Lista de produtos</h3>
+
+    <form action="{{ url('/products')}}"
+        method="get">
+    <input type="text" value="{{ $filter }}" name="search" placeholder="Pesquisar produto">
+    <button type="submit">Pesquisar</button>
+    </form>
+
     <ul>
         @foreach($products as $product)
-            <li> {{ $product['name'] }} 
+            <li> {{ $product['name'] }} / {{ $product->type->name }} 
 <a href="{{ url('/products/update', ['id'=> $product->id]) }}">Editar</a>
 <a href="{{ url('/products/delete', ['id' => $product->id]) }}">Excluir</a>
 
