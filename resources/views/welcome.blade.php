@@ -1,5 +1,11 @@
-<p>Seja bem vindo ao sistema</p>
-<ul>
-    <li><a href="{{ url('/types') }}">Cadastro de tipos</a></li>
-    <li><a href=" {{ url('/products') }}">Cadastro de produtos</a></li>
-</ul>
+<x-guest-layout >
+Bem vindo
+<br>
+<a href="{{ route('login') }}" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+    {{ __('Login') }}
+</a>
+<br>
+<a href="{{ route('register') }}" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+    {{ __('Register') }}
+</a>
+</x-guest-layout>

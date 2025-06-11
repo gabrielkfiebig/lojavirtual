@@ -2,17 +2,23 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 
-                            'description',
-                            'quantity',
-                            'price',
-                            'type_id'];
+    use HasFactory;
+    
+    protected $fillable = [
+        'name',
+        'description',
+        'quantity',
+        'price',
+        'type_id',
+    ];
 
-    public function type() {
+    public function type()
+    {
         return $this->belongsTo(Type::class);
     }
 }
