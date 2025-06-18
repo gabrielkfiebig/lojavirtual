@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TypesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,12 +25,17 @@ Route::middleware('auth')->group(function () {
     Route::post('/products/update/', [ProductsController::class, 'update']);
     Route::get('/products/delete/{id}', [ProductsController::class, 'destroy']);
 
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
     Route::get('/types/new', [TypesController::class, 'create']);
     Route::post('/types/new', [TypesController::class, 'store']);
     Route::get('/types', [TypesController::class, 'index'])->name('types');
     Route::get('/types/update/{id}', [TypesController::class, 'edit']);
     Route::post('/types/update/', [TypesController::class, 'update']);
     Route::get('/types/delete/{id}', [TypesController::class, 'destroy']);
+    
 });
 
 require __DIR__ . '/auth.php';

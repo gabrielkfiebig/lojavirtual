@@ -11,14 +11,19 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                <div class="hidden sm:-my-px sm:ms-10 sm:flex gap-10">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
+                        class="{{ request()->routeIs('dashboard') ? 'text-lg font-bold underline mt-1' : 'text-base mt-1' }}">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                     <x-nav-link :href="route('products')" :active="request()->routeIs('products')">
+
+                    <x-nav-link :href="route('products')" :active="request()->routeIs('products')"
+                        class="{{ request()->routeIs('products') ? 'text-lg font-bold underline mt-1' : 'text-base mt-1' }}">
                         {{ __('Produtos') }}
                     </x-nav-link>
-                     <x-nav-link :href="route('types')" :active="request()->routeIs('types')">
+
+                    <x-nav-link :href="route('types')" :active="request()->routeIs('types')"
+                        class="{{ request()->routeIs('types') ? 'text-lg font-bold underline mt-1' : 'text-base mt-1' }}">
                         {{ __('Tipos') }}
                     </x-nav-link>
                 </div>
@@ -30,7 +35,6 @@
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
-
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -47,7 +51,6 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
@@ -72,10 +75,25 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+        <div class="pt-2 pb-3 space-y-2">
+            <div class="px-4">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
+                class="{{ request()->routeIs('dashboard') ? 'text-lg font-bold underline' : 'text-base' }}">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            </div>  
+            <div class="px-4">
+            <x-responsive-nav-link :href="route('products')" :active="request()->routeIs('products')"
+                class="{{ request()->routeIs('products') ? 'text-lg font-bold underline' : 'text-base' }}">
+                {{ __('Produtos') }}
+            </x-responsive-nav-link>
+            </div>  
+            <div class="px-4">
+            <x-responsive-nav-link :href="route('types')" :active="request()->routeIs('types')"
+                class="{{ request()->routeIs('types') ? 'text-lg font-bold underline' : 'text-base' }}">
+                {{ __('Tipos') }}
+            </x-responsive-nav-link>
+            </div>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -93,7 +111,6 @@
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
